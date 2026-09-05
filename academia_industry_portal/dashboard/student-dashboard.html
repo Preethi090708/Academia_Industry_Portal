@@ -1,0 +1,3246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #172554, #2563eb);
+            color: white;
+            padding: 18px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .brand span {
+            opacity: 0.8;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            border: none;
+            background: white;
+            color: #1d4ed8;
+            padding: 9px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #e5edff;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .welcome-section {
+            margin-bottom: 25px;
+        }
+
+        .welcome-section h1 {
+            margin-bottom: 8px;
+            color: #172554;
+        }
+
+        .welcome-section p {
+            color: #64748b;
+            margin-top: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #172554;
+        }
+
+        .card-description {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        /* READINESS */
+
+        .readiness-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .readiness-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 12px solid #dbeafe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            flex-shrink: 0;
+            background: #f8fbff;
+        }
+
+        .readiness-circle strong {
+            font-size: 34px;
+            color: #2563eb;
+        }
+
+        .readiness-circle span {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .readiness-info {
+            flex: 1;
+        }
+
+        .readiness-info h2 {
+            margin-bottom: 10px;
+        }
+
+        /* SKILLS */
+
+        .skill-row {
+            margin-bottom: 20px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+        .skill-value {
+            color: #2563eb;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: #2563eb;
+            cursor: pointer;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        /* TECHNICAL SKILLS */
+
+        .technical-skills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .skill-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #dbe3ef;
+            padding: 12px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #fafcff;
+        }
+
+        .skill-checkbox:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .skill-checkbox input {
+            accent-color: #2563eb;
+        }
+
+        /* SELECT */
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+            color: #1f2937;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        /* TESTS */
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .test-card {
+            border: 1px solid #dbe3ef;
+            border-radius: 12px;
+            padding: 18px;
+            background: #fafcff;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+            color: #172554;
+        }
+
+        .test-status {
+            font-size: 13px;
+            color: #64748b;
+            margin: 8px 0 14px;
+        }
+
+        .test-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .test-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* BUTTON */
+
+        .primary-btn {
+            width: 100%;
+            border: none;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 14px rgba(37, 99, 235, 0.25);
+        }
+
+        /* ANALYSIS */
+
+        .analysis-result {
+            margin-top: 20px;
+        }
+
+        .analysis-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .analysis-box h3 {
+            margin-top: 0;
+            color: #172554;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tag.warning {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .tag.success {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        .tag.danger {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .skill-analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .skill-analysis-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .skill-analysis-item strong {
+            color: #172554;
+        }
+
+        .skill-analysis-score {
+            float: right;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        /* RECOMMENDATIONS */
+
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .recommendation-count {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        #recommendedJobs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .job-card {
+            border: 1px solid #dbe3ef;
+            border-radius: 12px;
+            padding: 20px;
+            background: #ffffff;
+            transition: 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+        }
+
+        .job-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .job-card h3 {
+            margin: 0 0 5px;
+            color: #172554;
+        }
+
+        .company {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .match-score {
+            min-width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #eff6ff;
+            border: 5px solid #bfdbfe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1d4ed8;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .job-details {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .job-details p {
+            margin: 8px 0;
+        }
+
+        .job-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 10px;
+        }
+
+        .job-skill {
+            background: #f1f5f9;
+            color: #334155;
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+        }
+
+        .missing-skill {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .apply-btn {
+            width: 100%;
+            border: none;
+            background: #172554;
+            color: white;
+            padding: 11px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        .apply-btn:hover {
+            background: #1e3a8a;
+        }
+
+        .empty-recommendations {
+            text-align: center;
+            padding: 35px;
+            color: #64748b;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px dashed #cbd5e1;
+            grid-column: 1 / -1;
+        }
+
+        /* ROADMAP */
+
+        .roadmap {
+            display: grid;
+            gap: 12px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fafcff;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .roadmap-step h3 {
+            margin: 0 0 5px;
+            font-size: 16px;
+        }
+
+        .roadmap-step p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+
+        /* STATUS */
+
+        .status-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            display: none;
+        }
+
+        /* TECHNICAL TEST AREA */
+
+        #technicalTestArea {
+            margin-top: 20px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card.full-width {
+                grid-column: auto;
+            }
+
+            .technical-skills {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .test-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #recommendedJobs {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-analysis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .dashboard-header {
+                padding: 15px;
+            }
+
+            .dashboard-container {
+                padding: 15px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .user-name {
+                display: none;
+            }
+
+            .readiness-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .technical-skills,
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body data-dashboard="Student">
+
+
+<header class="dashboard-header">
+
+    <div class="brand">
+        SkillBridge <span>| Student Portal</span>
+    </div>
+
+    <div class="header-right">
+
+        <span id="userName" class="user-name">
+            Student
+        </span>
+
+        <button
+            class="logout-btn"
+            onclick="studentLogout()"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard-container">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome-section">
+
+        <h1 id="welcomeMessage">
+            Welcome, Student 👋
+        </h1>
+
+        <p>
+            Build your profile, test your skills, discover suitable opportunities,
+            and follow a personalized career roadmap.
+        </p>
+
+    </section>
+
+
+    <div class="grid">
+
+
+        <!-- READINESS -->
+
+        <section class="card readiness-card">
+
+            <div class="readiness-info">
+
+                <h2>🎯 Career Readiness</h2>
+
+                <p>
+                    Your readiness score combines technical assessments,
+                    programming, problem solving, communication and project experience.
+                </p>
+
+                <div id="readinessMessage">
+                    Complete your profile and technical test to calculate your readiness.
+                </div>
+
+            </div>
+
+
+            <div class="readiness-circle">
+
+                <strong id="readinessScore">
+                    0%
+                </strong>
+
+                <span>
+                    Ready
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- CORE SKILLS -->
+
+        <section class="card">
+
+            <h2>🧠 Core Skills</h2>
+
+            <p class="card-description">
+                Rate your current confidence from 1 to 5.
+            </p>
+
+
+            <div class="skill-row">
+
+                <div class="skill-header">
+                    <span>Programming</span>
+
+                    <span id="programmingValue" class="skill-value">
+                        3/5
+                    </span>
+                </div>
+
+                <input
+                    type="range"
+                    id="programming"
+                    min="1"
+                    max="5"
+                    value="3"
+                    oninput="updateSkillValue('programming')"
+                >
+
+                <div class="range-labels">
+                    <span>Beginner</span>
+                    <span>Expert</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-row">
+
+                <div class="skill-header">
+                    <span>Problem Solving</span>
+
+                    <span id="problemValue" class="skill-value">
+                        3/5
+                    </span>
+                </div>
+
+                <input
+                    type="range"
+                    id="problem"
+                    min="1"
+                    max="5"
+                    value="3"
+                    oninput="updateSkillValue('problem')"
+                >
+
+                <div class="range-labels">
+                    <span>Beginner</span>
+                    <span>Expert</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-row">
+
+                <div class="skill-header">
+                    <span>Communication</span>
+
+                    <span id="communicationValue" class="skill-value">
+                        3/5
+                    </span>
+                </div>
+
+                <input
+                    type="range"
+                    id="communication"
+                    min="1"
+                    max="5"
+                    value="3"
+                    oninput="updateSkillValue('communication')"
+                >
+
+                <div class="range-labels">
+                    <span>Beginner</span>
+                    <span>Expert</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-row">
+
+                <div class="skill-header">
+                    <span>Project Experience</span>
+
+                    <span id="projectExperienceValue" class="skill-value">
+                        2/5
+                    </span>
+                </div>
+
+                <input
+                    type="range"
+                    id="projectExperience"
+                    min="0"
+                    max="5"
+                    value="2"
+                    oninput="updateSkillValue('projectExperience')"
+                >
+
+                <div class="range-labels">
+                    <span>No experience</span>
+                    <span>Strong experience</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TECHNICAL SKILLS -->
+
+        <section class="card full-width">
+
+            <h2>💻 Technical Skills</h2>
+
+            <p class="card-description">
+                Select the technologies and technical areas you already know.
+            </p>
+
+
+            <div class="technical-skills">
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="HTML">
+                    HTML
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="CSS">
+                    CSS
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="JavaScript">
+                    JavaScript
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="React">
+                    React
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Python">
+                    Python
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Java">
+                    Java
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="SQL">
+                    SQL
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Git">
+                    Git
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Power BI">
+                    Power BI
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="ML">
+                    Machine Learning
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Data Science">
+                    Data Science
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Networking">
+                    Networking
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Linux">
+                    Linux
+                </label>
+
+                <label class="skill-checkbox">
+                    <input type="checkbox" class="technical-skill" value="Security">
+                    Cyber Security
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- TARGET ROLE -->
+
+        <section class="card">
+
+            <h2>🚀 Target Career</h2>
+
+            <p class="card-description">
+                Select the job role you want to work towards.
+            </p>
+
+            <select id="targetRole">
+
+                <option value="">
+                    -- Select your target role --
+                </option>
+
+                <option value="Frontend Developer">
+                    Frontend Developer
+                </option>
+
+                <option value="Data Analyst">
+                    Data Analyst
+                </option>
+
+                <option value="Software Developer">
+                    Software Developer
+                </option>
+
+                <option value="AI/ML Engineer">
+                    AI / ML Engineer
+                </option>
+
+                <option value="Cyber Security Analyst">
+                    Cyber Security Analyst
+                </option>
+
+                <option value="Graduate Engineer Trainee">
+                    Graduate Engineer Trainee
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- TECHNICAL TESTS -->
+
+        <section class="card full-width">
+
+            <h2>📝 Technical Tests</h2>
+
+            <p class="card-description">
+                Complete individual assessments to measure your actual
+                technical knowledge. Every completed test is saved separately.
+            </p>
+
+            <div class="test-grid">
+
+
+                <!-- HTML -->
+
+                <div class="test-card">
+
+                    <h3>🌐 HTML</h3>
+
+                    <div id="htmlTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('HTML')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- CSS -->
+
+                <div class="test-card">
+
+                    <h3>🎨 CSS</h3>
+
+                    <div id="cssTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('CSS')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- JAVASCRIPT -->
+
+                <div class="test-card">
+
+                    <h3>⚡ JavaScript</h3>
+
+                    <div id="javascriptTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('JavaScript')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- PYTHON -->
+
+                <div class="test-card">
+
+                    <h3>🐍 Python</h3>
+
+                    <div id="pythonTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Python')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- JAVA -->
+
+                <div class="test-card">
+
+                    <h3>☕ Java</h3>
+
+                    <div id="javaTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Java')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- SQL -->
+
+                <div class="test-card">
+
+                    <h3>🗄️ SQL</h3>
+
+                    <div id="sqlTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('SQL')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- REACT -->
+
+                <div class="test-card">
+
+                    <h3>⚛️ React</h3>
+
+                    <div id="reactTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('React')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- GIT -->
+
+                <div class="test-card">
+
+                    <h3>🔀 Git</h3>
+
+                    <div id="gitTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Git')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- POWER BI -->
+
+                <div class="test-card">
+
+                    <h3>📊 Power BI</h3>
+
+                    <div id="powerBiTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Power BI')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- MACHINE LEARNING -->
+
+                <div class="test-card">
+
+                    <h3>🤖 Machine Learning</h3>
+
+                    <div id="machineLearningTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Machine Learning')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- DATA SCIENCE -->
+
+                <div class="test-card">
+
+                    <h3>📈 Data Science</h3>
+
+                    <div id="dataScienceTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Data Science')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- NETWORKING -->
+
+                <div class="test-card">
+
+                    <h3>🌐 Networking</h3>
+
+                    <div id="networkingTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Networking')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- LINUX -->
+
+                <div class="test-card">
+
+                    <h3>🐧 Linux</h3>
+
+                    <div id="linuxTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Linux')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+
+                <!-- CYBER SECURITY -->
+
+                <div class="test-card">
+
+                    <h3>🔐 Cyber Security</h3>
+
+                    <div id="cyberSecurityTestStatus" class="test-status">
+                        Not completed
+                    </div>
+
+                    <button
+                        class="test-btn"
+                        onclick="startTechnicalTest('Cyber Security')"
+                    >
+                        Take Test
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEST ENGINE AREA -->
+
+            <div id="technicalTestArea"></div>
+
+        </section>
+
+
+        <!-- ANALYSIS -->
+
+        <section class="card full-width">
+
+            <h2>📊 Analyse My Skills</h2>
+
+            <p class="card-description">
+                We'll compare your technical test results and current abilities
+                with your selected career goal to identify strengths, weaknesses
+                and the skills you should improve.
+            </p>
+
+            <button
+                class="primary-btn"
+                id="analyseButton"
+                onclick="analyseStudentProfile()"
+            >
+                Analyse My Skills
+            </button>
+
+            <div
+                id="analysisStatus"
+                class="status-message"
+            ></div>
+
+
+            <div
+                id="analysisResult"
+                class="analysis-result"
+            >
+
+                <div class="loading">
+                    Complete your profile and click
+                    "Analyse My Skills".
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECOMMENDED OPPORTUNITIES -->
+
+        <section class="card full-width">
+
+            <div class="recommendation-header">
+
+                <div>
+
+                    <h2>💼 Recommended Opportunities</h2>
+
+                    <p class="card-description">
+                        Opportunities are ranked according to your skills,
+                        technical assessments, target role and readiness.
+                    </p>
+
+                </div>
+
+                <span
+                    id="recommendationCount"
+                    class="recommendation-count"
+                >
+                    0 matches
+                </span>
+
+            </div>
+
+
+            <div id="recommendedJobs">
+
+                <div class="empty-recommendations">
+
+                    Select a target role and complete at least one
+                    technical test to receive personalized
+                    opportunity recommendations.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ROADMAP -->
+
+        <section class="card full-width">
+
+            <h2>🗺️ Personalized Career Roadmap</h2>
+
+            <p class="card-description">
+                Your roadmap will automatically adapt to your selected career
+                and identified skill gaps.
+            </p>
+
+
+            <div id="roadmap" class="roadmap">
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Complete your skill profile
+                        </h3>
+
+                        <p>
+                            Rate your core skills and select the technologies
+                            you already know.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Take technical assessments
+                        </h3>
+
+                        <p>
+                            Complete technical tests to measure your actual
+                            knowledge level.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Identify your skill gaps
+                        </h3>
+
+                        <p>
+                            Your technical test results will be compared
+                            against your target career requirements.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Build practical projects
+                        </h3>
+
+                        <p>
+                            Create projects that demonstrate your abilities
+                            to industry.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        5
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Apply to suitable opportunities
+                        </h3>
+
+                        <p>
+                            Use your personalized recommendations to find
+                            suitable internships, jobs and training programs.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+<!-- MAIN APPLICATION JAVASCRIPT -->
+
+<script src="../js/app.js"></script>
+
+
+<!-- TECHNICAL TEST JAVASCRIPT -->
+
+<script src="../js/technical-test.js"></script>
+
+
+<script>
+
+    /* =========================================================
+       AUTHENTICATION
+       ========================================================= */
+
+    function getPortalToken() {
+
+        return localStorage.getItem("portalToken");
+
+    }
+
+
+    function getPortalUser() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem("portalUser") || "null"
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read portalUser:",
+                error
+            );
+
+            return null;
+
+        }
+
+    }
+
+
+    /* =========================================================
+       SLIDER VALUES
+       ========================================================= */
+
+    function updateSkillValue(id) {
+
+        const input =
+            document.getElementById(id);
+
+        const output =
+            document.getElementById(id + "Value");
+
+        if (!input || !output) {
+            return;
+        }
+
+        output.textContent =
+            input.value + "/5";
+
+    }
+
+
+    /* =========================================================
+       LOAD STUDENT PROFILE
+       ========================================================= */
+
+    function loadStudentProfile() {
+
+        const user =
+            getPortalUser();
+
+        const userName =
+            user && user.name
+                ? user.name
+                : "Student";
+
+        const userNameElement =
+            document.getElementById("userName");
+
+        const welcomeElement =
+            document.getElementById("welcomeMessage");
+
+        if (userNameElement) {
+
+            userNameElement.textContent =
+                userName;
+
+        }
+
+        if (welcomeElement) {
+
+            welcomeElement.textContent =
+                "Welcome, " +
+                userName +
+                " 👋";
+
+        }
+
+    }
+
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
+    function studentLogout() {
+
+        localStorage.removeItem("portalToken");
+        localStorage.removeItem("portalUser");
+        localStorage.removeItem("studentReadinessScore");
+
+        window.location.href =
+            "../index.html";
+
+    }
+
+
+    /* =========================================================
+       GET TECHNICAL TEST RESULTS
+       ========================================================= */
+
+    function getStudentTechnicalResults() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(
+                    "technicalTestResults"
+                ) || "{}"
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read technical test results:",
+                error
+            );
+
+            return {};
+
+        }
+
+    }
+
+
+    /* =========================================================
+       TECHNICAL TEST STATUS
+       ========================================================= */
+
+    function updateTechnicalTestStatus() {
+
+        const results =
+            getStudentTechnicalResults();
+
+
+        const mapping = {
+
+            "HTML":
+                "htmlTestStatus",
+
+            "CSS":
+                "cssTestStatus",
+
+            "JavaScript":
+                "javascriptTestStatus",
+
+            "Python":
+                "pythonTestStatus",
+
+            "Java":
+                "javaTestStatus",
+
+            "SQL":
+                "sqlTestStatus",
+
+            "React":
+                "reactTestStatus",
+
+            "Git":
+                "gitTestStatus",
+
+            "Power BI":
+                "powerBiTestStatus",
+
+            "Machine Learning":
+                "machineLearningTestStatus",
+
+            "Data Science":
+                "dataScienceTestStatus",
+
+            "Networking":
+                "networkingTestStatus",
+
+            "Linux":
+                "linuxTestStatus",
+
+            "Cyber Security":
+                "cyberSecurityTestStatus"
+
+        };
+
+
+        Object.keys(mapping).forEach(
+            skill => {
+
+                const element =
+                    document.getElementById(
+                        mapping[skill]
+                    );
+
+                if (!element) {
+                    return;
+                }
+
+
+                const result =
+                    results[skill];
+
+
+                if (result) {
+
+                    const score =
+                        Number(
+                            result.percentage ??
+                            result.score ??
+                            0
+                        );
+
+                    element.innerHTML =
+                        "<strong>" +
+                        score +
+                        "%</strong> — Completed";
+
+                } else {
+
+                    element.textContent =
+                        "Not completed";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       NORMALIZE SKILL NAMES
+       ========================================================= */
+
+    function normalizeSkill(skill) {
+
+        const value =
+            String(skill || "")
+                .trim()
+                .toLowerCase();
+
+        const aliases = {
+
+            "ml":
+                "machine learning",
+
+            "machine learning":
+                "machine learning",
+
+            "security":
+                "cyber security",
+
+            "cyber security":
+                "cyber security",
+
+            "powerbi":
+                "power bi",
+
+            "power bi":
+                "power bi",
+
+            "javascript":
+                "javascript",
+
+            "data science":
+                "data science"
+
+        };
+
+        return aliases[value] || value;
+
+    }
+
+
+    /* =========================================================
+       GET TEST SCORE FOR SPECIFIC SKILL
+       ========================================================= */
+
+    function getSkillTestScore(
+        results,
+        skill
+    ) {
+
+        const wanted =
+            normalizeSkill(skill);
+
+        const matchingKey =
+            Object.keys(results).find(
+                key =>
+                    normalizeSkill(key) === wanted
+            );
+
+        if (!matchingKey) {
+
+            return null;
+
+        }
+
+        const result =
+            results[matchingKey];
+
+        const score =
+            Number(
+                result.percentage ??
+                result.score
+            );
+
+        if (!Number.isFinite(score)) {
+
+            return null;
+
+        }
+
+        return score;
+
+    }
+
+
+    /* =========================================================
+       ROLE REQUIREMENTS
+       ========================================================= */
+
+    const studentRoleRequirements = {
+
+        "Frontend Developer": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "React",
+            "Git"
+        ],
+
+        "Data Analyst": [
+            "Python",
+            "SQL",
+            "Power BI"
+        ],
+
+        "Software Developer": [
+            "Java",
+            "SQL",
+            "Git"
+        ],
+
+        "AI/ML Engineer": [
+            "Python",
+            "Machine Learning",
+            "Data Science"
+        ],
+
+        "Cyber Security Analyst": [
+            "Networking",
+            "Linux",
+            "Cyber Security"
+        ],
+
+        "Graduate Engineer Trainee": []
+
+    };
+
+
+    /* =========================================================
+       CAREER ROADMAP DATA
+       ========================================================= */
+
+    const careerRoadmaps = {
+
+        "Frontend Developer": [
+            [
+                "Master HTML & CSS",
+                "Build strong foundations in semantic HTML, layouts, forms and responsive CSS."
+            ],
+            [
+                "Strengthen JavaScript",
+                "Practice DOM manipulation, events, functions, arrays, objects and asynchronous JavaScript."
+            ],
+            [
+                "Learn React",
+                "Build component-based applications using React, state, props and hooks."
+            ],
+            [
+                "Learn Git & GitHub",
+                "Practice version control and maintain your projects in Git repositories."
+            ],
+            [
+                "Build portfolio projects",
+                "Create responsive websites and deploy at least two complete frontend projects."
+            ]
+        ],
+
+        "Data Analyst": [
+            [
+                "Strengthen Python",
+                "Practice Python fundamentals, data structures and data analysis libraries."
+            ],
+            [
+                "Master SQL",
+                "Practice SELECT, JOIN, GROUP BY, subqueries and analytical queries."
+            ],
+            [
+                "Learn Power BI",
+                "Create dashboards, reports, visualizations and data models."
+            ],
+            [
+                "Practice data analysis",
+                "Work with real datasets and identify trends, patterns and insights."
+            ],
+            [
+                "Build a data portfolio",
+                "Create dashboards and analysis projects that demonstrate practical ability."
+            ]
+        ],
+
+        "Software Developer": [
+            [
+                "Strengthen Java",
+                "Practice OOP, collections, exception handling and core Java programming."
+            ],
+            [
+                "Master SQL",
+                "Learn relational databases, joins, queries and database design fundamentals."
+            ],
+            [
+                "Learn Git",
+                "Use Git branches, commits, merges and repositories effectively."
+            ],
+            [
+                "Practice problem solving",
+                "Solve programming problems regularly and improve algorithmic thinking."
+            ],
+            [
+                "Build software projects",
+                "Create practical applications demonstrating Java, SQL and Git."
+            ]
+        ],
+
+        "AI/ML Engineer": [
+            [
+                "Master Python",
+                "Build strong Python programming and data-handling fundamentals."
+            ],
+            [
+                "Learn Data Science",
+                "Study data cleaning, visualization, statistics and exploratory analysis."
+            ],
+            [
+                "Learn Machine Learning",
+                "Understand supervised learning, unsupervised learning and model evaluation."
+            ],
+            [
+                "Practice with datasets",
+                "Train and evaluate models using real datasets."
+            ],
+            [
+                "Build AI/ML projects",
+                "Create practical projects and document the approach, results and limitations."
+            ]
+        ],
+
+        "Cyber Security Analyst": [
+            [
+                "Learn Networking",
+                "Understand IP addresses, protocols, ports, DNS, HTTP and network fundamentals."
+            ],
+            [
+                "Strengthen Linux",
+                "Practice Linux commands, permissions, processes and system administration."
+            ],
+            [
+                "Learn Cyber Security",
+                "Study authentication, vulnerabilities, defensive security and basic security concepts."
+            ],
+            [
+                "Practice security analysis",
+                "Use safe educational labs to understand common security scenarios."
+            ],
+            [
+                "Build a security portfolio",
+                "Document defensive security projects, investigations and learning outcomes."
+            ]
+        ],
+
+        "Graduate Engineer Trainee": [
+            [
+                "Strengthen problem solving",
+                "Practice logical reasoning, quantitative thinking and programming problems."
+            ],
+            [
+                "Improve communication",
+                "Practice explaining technical concepts clearly and confidently."
+            ],
+            [
+                "Build project experience",
+                "Complete practical academic or personal projects."
+            ],
+            [
+                "Prepare for interviews",
+                "Practice technical, behavioral and communication questions."
+            ],
+            [
+                "Apply strategically",
+                "Focus on opportunities that match your current skills and growth areas."
+            ]
+        ]
+
+    };
+
+
+    /* =========================================================
+       UPDATE ROADMAP
+       ========================================================= */
+
+    function updateCareerRoadmap(
+        targetRole,
+        weakSkills,
+        missingSkills
+    ) {
+
+        const roadmap =
+            document.getElementById("roadmap");
+
+        if (!roadmap) {
+            return;
+        }
+
+
+        const baseRoadmap =
+            careerRoadmaps[targetRole] || [];
+
+
+        const personalizedSteps = [];
+
+
+        /* FIRST: SKILL GAP STEP */
+
+        if (
+            missingSkills.length > 0 ||
+            weakSkills.length > 0
+        ) {
+
+            const gapText = [];
+
+            if (missingSkills.length > 0) {
+
+                gapText.push(
+                    "Missing: " +
+                    missingSkills.join(", ")
+                );
+
+            }
+
+            if (weakSkills.length > 0) {
+
+                gapText.push(
+                    "Needs improvement: " +
+                    weakSkills.join(", ")
+                );
+
+            }
+
+            personalizedSteps.push(
+                [
+                    "Close your current skill gaps",
+                    gapText.join(" | ")
+                ]
+            );
+
+        }
+
+
+        /* CAREER ROADMAP */
+
+        baseRoadmap.forEach(
+            step => {
+
+                personalizedSteps.push(step);
+
+            }
+        );
+
+
+        roadmap.innerHTML =
+            personalizedSteps
+                .slice(0, 6)
+                .map(
+                    (step, index) => `
+
+                        <div class="roadmap-step">
+
+                            <div class="step-number">
+                                ${index + 1}
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    ${escapeHtml(step[0])}
+                                </h3>
+
+                                <p>
+                                    ${escapeHtml(step[1])}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `
+                )
+                .join("");
+
+    }
+
+
+    /* =========================================================
+       ANALYSE STUDENT PROFILE
+       ========================================================= */
+
+    async function analyseStudentProfile() {
+
+        const token =
+            getPortalToken();
+
+
+        if (!token) {
+
+            alert(
+                "Please login first."
+            );
+
+            window.location.href =
+                "../index.html";
+
+            return;
+
+        }
+
+
+        const targetRoleElement =
+            document.getElementById(
+                "targetRole"
+            );
+
+
+        const targetRole =
+            targetRoleElement
+                ? targetRoleElement.value
+                : "";
+
+
+        if (!targetRole) {
+
+            alert(
+                "Please select your target career role."
+            );
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           TECHNICAL TEST RESULTS
+           ===================================================== */
+
+        const technicalResults =
+            getStudentTechnicalResults();
+
+
+        const completedTechnicalSkills =
+            Object.keys(
+                technicalResults
+            );
+
+
+        if (
+            completedTechnicalSkills.length === 0
+        ) {
+
+            alert(
+                "Please complete at least one Technical Test before analysing your skills."
+            );
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           OVERALL TECHNICAL SCORE
+           ===================================================== */
+
+        let technicalScore =
+            null;
+
+
+        if (
+            typeof calculateOverallTechnicalScore ===
+            "function"
+        ) {
+
+            technicalScore =
+                calculateOverallTechnicalScore();
+
+        }
+
+
+        /*
+         * Fallback calculation.
+         */
+
+        if (technicalScore === null) {
+
+            const scores =
+                Object.values(
+                    technicalResults
+                )
+                .map(
+                    result =>
+                        Number(
+                            result.percentage ??
+                            result.score
+                        )
+                )
+                .filter(
+                    score =>
+                        Number.isFinite(score)
+                );
+
+
+            if (scores.length > 0) {
+
+                technicalScore =
+                    Math.round(
+                        scores.reduce(
+                            (sum, score) =>
+                                sum + score,
+                            0
+                        ) / scores.length
+                    );
+
+            }
+
+        }
+
+
+        if (technicalScore === null) {
+
+            alert(
+                "Unable to calculate your technical score."
+            );
+
+            return;
+
+        }
+
+
+        /* =====================================================
+           CORE SKILLS
+           ===================================================== */
+
+        const programming =
+            Number(
+                document.getElementById(
+                    "programming"
+                ).value
+            );
+
+
+        const problemSolving =
+            Number(
+                document.getElementById(
+                    "problem"
+                ).value
+            );
+
+
+        const communication =
+            Number(
+                document.getElementById(
+                    "communication"
+                ).value
+            );
+
+
+        const projectExperience =
+            Number(
+                document.getElementById(
+                    "projectExperience"
+                ).value
+            );
+
+
+        /* =====================================================
+           SELECTED TECHNICAL SKILLS
+           ===================================================== */
+
+        const technicalSkills =
+            Array.from(
+                document.querySelectorAll(
+                    ".technical-skill:checked"
+                )
+            )
+            .map(
+                checkbox =>
+                    checkbox.value
+            );
+
+
+        /* =====================================================
+           ROLE REQUIREMENTS
+           ===================================================== */
+
+        const required =
+            studentRoleRequirements[
+                targetRole
+            ] || [];
+
+
+        const weakSkills = [];
+        const missingSkills = [];
+        const strongSkills = [];
+        const skillAnalysis = [];
+
+
+        /*
+         * Compare actual test results against
+         * target role requirements.
+         */
+
+        required.forEach(
+            skill => {
+
+                const score =
+                    getSkillTestScore(
+                        technicalResults,
+                        skill
+                    );
+
+
+                if (score === null) {
+
+                    missingSkills.push(
+                        skill
+                    );
+
+                    skillAnalysis.push({
+
+                        skill: skill,
+
+                        score: null,
+
+                        status: "Not tested"
+
+                    });
+
+                    return;
+
+                }
+
+
+                if (score >= 70) {
+
+                    strongSkills.push(
+                        skill
+                    );
+
+                    skillAnalysis.push({
+
+                        skill: skill,
+
+                        score: score,
+
+                        status: "Strong"
+
+                    });
+
+                } else {
+
+                    weakSkills.push(
+                        skill
+                    );
+
+                    skillAnalysis.push({
+
+                        skill: skill,
+
+                        score: score,
+
+                        status: "Needs improvement"
+
+                    });
+
+                }
+
+            }
+        );
+
+
+        /*
+         * Graduate Engineer Trainee has no
+         * mandatory technical tests.
+         */
+
+        if (
+            targetRole ===
+            "Graduate Engineer Trainee"
+        ) {
+
+            skillAnalysis.push({
+
+                skill: "Problem Solving",
+
+                score:
+                    Math.round(
+                        (problemSolving / 5) * 100
+                    ),
+
+                status:
+                    problemSolving >= 4
+                        ? "Strong"
+                        : "Needs improvement"
+
+            });
+
+
+            skillAnalysis.push({
+
+                skill: "Communication",
+
+                score:
+                    Math.round(
+                        (communication / 5) * 100
+                    ),
+
+                status:
+                    communication >= 4
+                        ? "Strong"
+                        : "Needs improvement"
+
+            });
+
+        }
+
+
+        /* =====================================================
+           CAREER-SPECIFIC TECHNICAL SCORE
+           ===================================================== */
+
+        let roleTechnicalScore =
+            technicalScore;
+
+
+        const roleScores =
+            required
+                .map(
+                    skill =>
+                        getSkillTestScore(
+                            technicalResults,
+                            skill
+                        )
+                )
+                .filter(
+                    score =>
+                        score !== null
+                );
+
+
+        if (roleScores.length > 0) {
+
+            roleTechnicalScore =
+                Math.round(
+                    roleScores.reduce(
+                        (sum, score) =>
+                            sum + score,
+                        0
+                    ) / roleScores.length
+                );
+
+        }
+
+
+        /* =====================================================
+           CORE SKILL SCORE
+           ===================================================== */
+
+        const coreSkillScore =
+            (
+                (programming / 5) * 20 +
+                (problemSolving / 5) * 20 +
+                (communication / 5) * 15 +
+                (projectExperience / 5) * 15
+            );
+
+
+        /*
+         * Technical test = 30%
+         * Core skills = 70%
+         */
+
+        const percentage =
+            Math.round(
+                roleTechnicalScore * 0.30 +
+                coreSkillScore
+            );
+
+
+        /* =====================================================
+           SAVE READINESS
+           ===================================================== */
+
+        localStorage.setItem(
+            "studentReadinessScore",
+            String(percentage)
+        );
+
+
+        /* =====================================================
+           UPDATE READINESS UI
+           ===================================================== */
+
+        const readinessScore =
+            document.getElementById(
+                "readinessScore"
+            );
+
+
+        if (readinessScore) {
+
+            readinessScore.textContent =
+                percentage + "%";
+
+        }
+
+
+        const readinessMessage =
+            document.getElementById(
+                "readinessMessage"
+            );
+
+
+        if (readinessMessage) {
+
+            if (percentage >= 80) {
+
+                readinessMessage.innerHTML =
+                    "<strong>Excellent readiness.</strong> " +
+                    "You are in a strong position to apply for suitable opportunities.";
+
+            } else if (percentage >= 65) {
+
+                readinessMessage.innerHTML =
+                    "<strong>Strong progress.</strong> " +
+                    "Focus on your remaining skill gaps.";
+
+            } else if (percentage >= 50) {
+
+                readinessMessage.innerHTML =
+                    "<strong>Potential identified.</strong> " +
+                    "Continue building technical and practical skills.";
+
+            } else {
+
+                readinessMessage.innerHTML =
+                    "<strong>More preparation needed.</strong> " +
+                    "Follow your personalized roadmap and strengthen your fundamentals.";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           ANALYSIS HTML
+           ===================================================== */
+
+        const analysisResult =
+            document.getElementById(
+                "analysisResult"
+            );
+
+
+        const completedCount =
+            completedTechnicalSkills.length;
+
+
+        let skillAnalysisHtml = "";
+
+
+        if (skillAnalysis.length > 0) {
+
+            skillAnalysisHtml =
+                skillAnalysis
+                    .map(
+                        item => {
+
+                            let scoreText =
+                                "Not tested";
+
+                            if (
+                                item.score !== null
+                            ) {
+
+                                scoreText =
+                                    item.score + "%";
+
+                            }
+
+
+                            let statusClass =
+                                "";
+
+
+                            if (
+                                item.status ===
+                                "Strong"
+                            ) {
+
+                                statusClass =
+                                    "success";
+
+                            } else if (
+                                item.status ===
+                                "Needs improvement"
+                            ) {
+
+                                statusClass =
+                                    "warning";
+
+                            } else {
+
+                                statusClass =
+                                    "danger";
+
+                            }
+
+
+                            return `
+
+                                <div class="skill-analysis-item">
+
+                                    <strong>
+                                        ${escapeHtml(item.skill)}
+                                    </strong>
+
+                                    <span class="skill-analysis-score">
+                                        ${scoreText}
+                                    </span>
+
+                                    <br>
+
+                                    <span class="tag ${statusClass}">
+                                        ${escapeHtml(item.status)}
+                                    </span>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+
+        analysisResult.innerHTML = `
+
+            <div class="analysis-box">
+
+                <h3>
+                    🎯 Target Role
+                </h3>
+
+                <p>
+                    <strong>
+                        ${escapeHtml(targetRole)}
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    📈 Technical Assessment
+                </h3>
+
+                <p>
+                    You have completed
+                    <strong>
+                        ${completedCount}
+                    </strong>
+                    technical test(s).
+                </p>
+
+                <p>
+                    Overall technical score:
+                    <strong>
+                        ${technicalScore}%
+                    </strong>
+                </p>
+
+                <p>
+                    Target-role technical score:
+                    <strong>
+                        ${roleTechnicalScore}%
+                    </strong>
+                </p>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width:${Math.min(roleTechnicalScore, 100)}%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    🧠 Overall Career Readiness
+                </h3>
+
+                <p>
+                    Your current readiness score is
+                    <strong>
+                        ${percentage}%
+                    </strong>.
+                </p>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width:${Math.min(percentage, 100)}%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    🧪 Skill-by-Skill Analysis
+                </h3>
+
+                <div class="skill-analysis-grid">
+
+                    ${skillAnalysisHtml}
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    💪 Strong Skills
+                </h3>
+
+                ${
+                    strongSkills.length > 0
+
+                    ?
+
+                    `
+                        <div class="tag-container">
+
+                            ${
+                                strongSkills
+                                    .map(
+                                        skill =>
+                                            `
+                                            <span class="tag success">
+                                                ${escapeHtml(skill)}
+                                            </span>
+                                            `
+                                    )
+                                    .join("")
+                            }
+
+                        </div>
+                    `
+
+                    :
+
+                    `
+                        <p>
+                            Complete more role-specific tests to identify your strongest technical skills.
+                        </p>
+                    `
+                }
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    ⚠️ Skills That Need Improvement
+                </h3>
+
+                ${
+                    weakSkills.length > 0
+
+                    ?
+
+                    `
+                        <div class="tag-container">
+
+                            ${
+                                weakSkills
+                                    .map(
+                                        skill =>
+                                            `
+                                            <span class="tag warning">
+                                                ${escapeHtml(skill)}
+                                            </span>
+                                            `
+                                    )
+                                    .join("")
+                            }
+
+                        </div>
+                    `
+
+                    :
+
+                    `
+                        <p>
+                            🎉 No major weaknesses were identified among your completed role-specific tests.
+                        </p>
+                    `
+                }
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    🔎 Missing / Untested Skills
+                </h3>
+
+                ${
+                    missingSkills.length > 0
+
+                    ?
+
+                    `
+
+                        <p>
+                            You should complete or learn:
+                        </p>
+
+                        <div class="tag-container">
+
+                            ${
+                                missingSkills
+                                    .map(
+                                        skill =>
+                                            `
+                                            <span class="tag danger">
+                                                ${escapeHtml(skill)}
+                                            </span>
+                                            `
+                                    )
+                                    .join("")
+                            }
+
+                        </div>
+
+                    `
+
+                    :
+
+                    `
+
+                        <p>
+                            🎉 You have completed tests for all listed technical requirements of this role.
+                        </p>
+
+                    `
+                }
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                <h3>
+                    💡 Recommended Focus
+                </h3>
+
+                <p>
+
+                    ${
+                        missingSkills.length > 0
+
+                        ?
+
+                        "Complete the missing skill assessments and learn the identified technologies before focusing on advanced projects."
+
+                        :
+
+                        weakSkills.length > 0
+
+                        ?
+
+                        "Strengthen the skills marked as needing improvement and retake the assessments after practicing."
+
+                        :
+
+                        "Focus on advanced projects, interview preparation, communication and real-world industry experience."
+
+                    }
+
+                </p>
+
+            </div>
+
+        `;
+
+
+        /* =====================================================
+           UPDATE ROADMAP
+           ===================================================== */
+
+        updateCareerRoadmap(
+            targetRole,
+            weakSkills,
+            missingSkills
+        );
+
+
+        /* =====================================================
+           SAVE ASSESSMENT TO BACKEND
+           ===================================================== */
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/assessment",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                "Bearer " + token
+
+                        },
+
+                        body: JSON.stringify({
+
+                            programming:
+                                programming,
+
+                            problemSolving:
+                                problemSolving,
+
+                            communication:
+                                communication,
+
+                            projectExperience:
+                                projectExperience,
+
+                            projectScore:
+                                projectExperience,
+
+                            technicalScore:
+                                roleTechnicalScore,
+
+                            technicalSkills:
+                                technicalSkills,
+
+                            targetRole:
+                                targetRole,
+
+                            score:
+                                percentage
+
+                        })
+
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                const errorData =
+                    await response
+                        .json()
+                        .catch(
+                            () => ({})
+                        );
+
+                console.error(
+                    "Assessment save failed:",
+                    errorData
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Assessment save error:",
+                error
+            );
+
+        }
+
+
+        /* =====================================================
+           RECOMMENDATIONS
+           ===================================================== */
+
+        if (
+            typeof showJobRecommendations ===
+            "function"
+        ) {
+
+            await showJobRecommendations();
+
+        }
+
+
+        /* =====================================================
+           STATUS
+           ===================================================== */
+
+        const status =
+            document.getElementById(
+                "analysisStatus"
+            );
+
+
+        if (status) {
+
+            status.style.display =
+                "block";
+
+            status.textContent =
+                "Analysis complete. Your skill gaps, roadmap and recommendations have been updated.";
+
+        }
+
+    }
+
+
+    /* =========================================================
+       HTML ESCAPE
+       ========================================================= */
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE DASHBOARD
+       ========================================================= */
+
+    function initializeStudentDashboard() {
+
+        loadStudentProfile();
+
+        updateTechnicalTestStatus();
+
+
+        /* RESTORE READINESS */
+
+        const savedScore =
+            localStorage.getItem(
+                "studentReadinessScore"
+            );
+
+
+        if (savedScore) {
+
+            const scoreElement =
+                document.getElementById(
+                    "readinessScore"
+                );
+
+
+            if (scoreElement) {
+
+                scoreElement.textContent =
+                    savedScore + "%";
+
+            }
+
+        }
+
+
+        /* SLIDER VALUES */
+
+        updateSkillValue("programming");
+
+        updateSkillValue("problem");
+
+        updateSkillValue("communication");
+
+        updateSkillValue("projectExperience");
+
+
+        /* TARGET ROLE */
+
+        const targetRole =
+            document.getElementById(
+                "targetRole"
+            );
+
+
+        if (targetRole) {
+
+            targetRole.addEventListener(
+                "change",
+                async function () {
+
+                    const token =
+                        getPortalToken();
+
+
+                    if (!token) {
+                        return;
+                    }
+
+
+                    if (
+                        typeof calculateOverallTechnicalScore ===
+                        "function"
+                    ) {
+
+                        const score =
+                            calculateOverallTechnicalScore();
+
+
+                        if (
+                            score !== null &&
+                            typeof showJobRecommendations ===
+                            "function"
+                        ) {
+
+                            await showJobRecommendations();
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       PAGE START
+       ========================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const token =
+                getPortalToken();
+
+
+            if (!token) {
+
+                alert(
+                    "Please login first."
+                );
+
+                window.location.href =
+                    "../index.html";
+
+                return;
+
+            }
+
+
+            initializeStudentDashboard();
+
+        }
+    );
+
+
+    /* =========================================================
+       REFRESH TEST STATUS
+       ========================================================= */
+
+    window.addEventListener(
+        "focus",
+        function () {
+
+            updateTechnicalTestStatus();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

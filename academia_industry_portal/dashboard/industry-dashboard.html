@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industry Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body data-dashboard="Industry">
+
+<header class="topbar">
+    <div class="brand">
+        <div class="brand-icon">AI</div>
+        <div>
+            <h1>Academia–Industry</h1>
+            <span>Industry Portal</span>
+        </div>
+    </div>
+
+    <button class="login-btn" onclick="logoutUser()">Logout</button>
+</header>
+
+<main class="dashboard-page">
+
+    <section class="dashboard-hero">
+        <div>
+            <span class="badge">INDUSTRY DASHBOARD</span>
+            <h2>Welcome, <span data-user-name>Industry</span> 👋</h2>
+            <p>Find skilled talent, create opportunities and collaborate with academia.</p>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-avatar">🏢</div>
+            <h3 data-user-name>Industry</h3>
+            <p data-user-email>Loading...</p>
+            <span class="role-badge" data-user-role>Industry</span>
+        </div>
+    </section>
+
+    <section class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <div class="dashboard-icon">📢</div>
+            <h3>Post Opportunity</h3>
+            <p>Publish internships, jobs, training programs and projects.</p>
+            <button class="primary" onclick="alert('Opportunity posting module coming next.')">
+                Post Opportunity
+            </button>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-icon">👥</div>
+            <h3>Find Talent</h3>
+            <p>Discover students based on verified skills and assessment scores.</p>
+            <button class="primary" onclick="alert('Talent search module coming next.')">
+                Find Students
+            </button>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-icon">🤝</div>
+            <h3>Campus Collaboration</h3>
+            <p>Build partnerships with institutions and academic departments.</p>
+            <button class="secondary" onclick="alert('Collaboration module coming next.')">
+                Collaborate
+            </button>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-icon">📊</div>
+            <h3>Hiring Analytics</h3>
+            <p>Track applications, candidates and recruitment outcomes.</p>
+            <button class="secondary" onclick="alert('Hiring analytics module coming next.')">
+                View Analytics
+            </button>
+        </div>
+
+    </section>
+
+</main>
+
+<script src="../js/app.js"></script>
+</body>
+</html>

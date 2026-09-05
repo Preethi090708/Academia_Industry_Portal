@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkillBridge | Academia–Industry Placement Portal</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-icon">SB</div>
+
+            <div>
+                <h1>SkillBridge</h1>
+                <span>Academia–Industry Placement Portal</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#dashboard">Home</a>
+            <a href="#skills">Skill Assessment</a>
+            <a href="#opportunities">Jobs</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#collaboration">Collaboration</a>
+        </nav>
+
+        <button class="login-btn" onclick="openModal()">
+            Login
+        </button>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <span class="badge">
+                    SKILLS • JOBS • ROADMAP • CAREER
+                </span>
+
+                <h2>
+                    Discover Your
+                    <span>Career Potential</span>
+                </h2>
+
+                <p>
+                    SkillBridge analyses your current skills, identifies
+                    skill gaps, recommends suitable job opportunities and
+                    creates a personalized roadmap to help you become
+                    industry-ready.
+                </p>
+
+                <div class="hero-actions">
+
+                    <button
+                        class="primary"
+                        onclick="scrollToSection('skills')">
+                        Assess My Skills
+                    </button>
+
+                    <button
+                        class="secondary"
+                        onclick="scrollToSection('opportunities')">
+                        Explore Jobs
+                    </button>
+
+                </div>
+
+                <div class="hero-highlights">
+
+                    <div>
+                        <strong>01</strong>
+                        <span>Assess Skills</span>
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        <span>Find Skill Gaps</span>
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        <span>Build Roadmap</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-graphic">
+
+                <div class="circle">
+                    SB
+                </div>
+
+                <div class="node node1">
+                    🎓
+                    <small>Students</small>
+                </div>
+
+                <div class="node node2">
+                    🏢
+                    <small>Industry</small>
+                </div>
+
+                <div class="node node3">
+                    👨‍🏫
+                    <small>Academia</small>
+                </div>
+
+                <div class="node node4">
+                    🏛️
+                    <small>Institutions</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STAKEHOLDERS -->
+        <section id="dashboard" class="section">
+
+            <div class="section-title">
+
+                <span>ONE ECOSYSTEM</span>
+
+                <h2>
+                    Connecting Education With Industry
+                </h2>
+
+                <p>
+                    One platform for students, academicians,
+                    industries and institutions.
+                </p>
+
+            </div>
+
+
+            <div class="cards four">
+
+                <article class="card">
+                    <div class="icon">🎓</div>
+
+                    <h3>Students</h3>
+
+                    <p>
+                        Assess your skills, discover suitable
+                        opportunities and build a career roadmap.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <div class="icon">👨‍🏫</div>
+
+                    <h3>Academicians</h3>
+
+                    <p>
+                        Connect students with industry,
+                        training programs and research opportunities.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <div class="icon">🏢</div>
+
+                    <h3>Industry</h3>
+
+                    <p>
+                        Discover skilled candidates and
+                        publish internships, jobs and projects.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <div class="icon">🏛️</div>
+
+                    <h3>Institutions</h3>
+
+                    <p>
+                        Monitor student skills, placements,
+                        internships and industry partnerships.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- SKILLS -->
+        <section id="skills" class="section alt">
+
+            <div class="section-title">
+
+                <span>SKILL INTELLIGENCE</span>
+
+                <h2>
+                    Know Where You Stand
+                </h2>
+
+                <p>
+                    Evaluate your current abilities and identify
+                    areas that need improvement.
+                </p>
+
+            </div>
+
+
+            <div class="workflow">
+
+                <div>
+                    <b>01</b>
+                    <h3>Assess</h3>
+                    <p>Test technical and soft skills.</p>
+                </div>
+
+                <div>
+                    <b>02</b>
+                    <h3>Analyse</h3>
+                    <p>Analyse your current skill level.</p>
+                </div>
+
+                <div>
+                    <b>03</b>
+                    <h3>Identify Gap</h3>
+                    <p>Compare your skills with job requirements.</p>
+                </div>
+
+                <div>
+                    <b>04</b>
+                    <h3>Improve</h3>
+                    <p>Follow your personalized roadmap.</p>
+                </div>
+
+            </div>
+
+
+            <div class="assessment-box">
+
+                <div class="assessment-info">
+
+                    <span class="mini-badge">
+                        QUICK ASSESSMENT
+                    </span>
+
+                    <h3>
+                        Rate Your Current Skills
+                    </h3>
+
+                    <p>
+                        This is the first stage of your skill
+                        analysis. More detailed tests will be
+                        available after login.
+                    </p>
+
+                </div>
+
+
+                <div class="skills-form">
+
+                    <label>
+                        <span>Programming</span>
+
+                        <input
+                            id="programming"
+                            type="range"
+                            min="1"
+                            max="5"
+                            value="3">
+                    </label>
+
+
+                    <label>
+                        <span>Communication</span>
+
+                        <input
+                            id="communication"
+                            type="range"
+                            min="1"
+                            max="5"
+                            value="3">
+                    </label>
+
+
+                    <label>
+                        <span>Problem Solving</span>
+
+                        <input
+                            id="problem"
+                            type="range"
+                            min="1"
+                            max="5"
+                            value="3">
+                    </label>
+
+
+                    <button
+                        class="primary"
+                        onclick="calculateScore()">
+                        Generate Skill Profile
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="scoreResult"
+                    class="result">
+
+                    Your skill profile
+                    will appear here.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- OPPORTUNITIES -->
+        <section id="opportunities" class="section">
+
+            <div class="section-title">
+
+                <span>CAREER OPPORTUNITIES</span>
+
+                <h2>
+                    Find Jobs That Match Your Skills
+                </h2>
+
+                <p>
+                    Explore internships, jobs and training
+                    opportunities.
+                </p>
+
+            </div>
+
+
+            <div class="toolbar">
+
+                <input
+                    id="searchBox"
+                    type="search"
+                    placeholder="Search jobs, companies or skills..."
+                    oninput="filterOpportunities()">
+
+
+                <select
+                    id="typeFilter"
+                    onchange="filterOpportunities()">
+
+                    <option value="all">
+                        All Opportunities
+                    </option>
+
+                    <option value="Internship">
+                        Internships
+                    </option>
+
+                    <option value="Job">
+                        Jobs
+                    </option>
+
+                    <option value="Training">
+                        Training
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="opportunityList"
+                class="opportunity-grid">
+            </div>
+
+        </section>
+
+
+        <!-- ROADMAP -->
+        <section
+            id="roadmap"
+            class="section roadmap-section">
+
+            <div class="section-title">
+
+                <span>PERSONALIZED CAREER ROADMAP</span>
+
+                <h2>
+                    From Current Skills to Dream Job
+                </h2>
+
+                <p>
+                    The portal will identify the skills required
+                    for your target position and guide you toward
+                    becoming industry-ready.
+                </p>
+
+            </div>
+
+
+            <div class="roadmap">
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div>
+                        <h3>Current Skill Profile</h3>
+
+                        <p>
+                            Analyse programming, communication,
+                            problem-solving and other abilities.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-line"></div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div>
+                        <h3>Target Job</h3>
+
+                        <p>
+                            Select your desired career or job
+                            position.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-line"></div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div>
+                        <h3>Skill Gap Analysis</h3>
+
+                        <p>
+                            Compare your current abilities with
+                            the skills required by industry.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-line"></div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        04
+                    </div>
+
+                    <div>
+                        <h3>Personalized Learning</h3>
+
+                        <p>
+                            Receive courses, projects, tests and
+                            learning recommendations.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="roadmap-line"></div>
+
+
+                <div class="roadmap-step">
+
+                    <div class="step-number">
+                        05
+                    </div>
+
+                    <div>
+                        <h3>Industry Ready</h3>
+
+                        <p>
+                            Track your progress until you meet
+                            your target job requirements.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COLLABORATION -->
+        <section
+            id="collaboration"
+            class="section alt">
+
+            <div class="section-title">
+
+                <span>COLLABORATION</span>
+
+                <h2>
+                    Connect. Collaborate. Innovate.
+                </h2>
+
+            </div>
+
+
+            <div class="cards three">
+
+                <article class="feature">
+                    <span>🤝</span>
+                    <h3>Mentorship</h3>
+                    <p>
+                        Industry experts can guide students
+                        through technical and career challenges.
+                    </p>
+                </article>
+
+
+                <article class="feature">
+                    <span>💡</span>
+                    <h3>Live Projects</h3>
+                    <p>
+                        Students can gain practical experience
+                        by working on real-world problems.
+                    </p>
+                </article>
+
+
+                <article class="feature">
+                    <span>🚀</span>
+                    <h3>Innovation Challenges</h3>
+                    <p>
+                        Participate in hackathons, challenges
+                        and industry programs.
+                    </p>
+                </article>
+
+
+                <article class="feature">
+                    <span>📚</span>
+                    <h3>Training</h3>
+                    <p>
+                        Learn current technologies through
+                        industry-relevant training.
+                    </p>
+                </article>
+
+
+                <article class="feature">
+                    <span>🔬</span>
+                    <h3>Research</h3>
+                    <p>
+                        Build academic and industry research
+                        collaborations.
+                    </p>
+                </article>
+
+
+                <article class="feature">
+                    <span>🏆</span>
+                    <h3>Digital Portfolio</h3>
+                    <p>
+                        Showcase projects, certificates,
+                        skills and achievements.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+        <section class="section analytics">
+
+            <div class="section-title">
+
+                <span>PORTAL ANALYTICS</span>
+
+                <h2>
+                    Data-Driven Placement Insights
+                </h2>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div>
+                    <strong>1,250</strong>
+                    <span>Students</span>
+                </div>
+
+                <div>
+                    <strong>86%</strong>
+                    <span>Placement Ready</span>
+                </div>
+
+                <div>
+                    <strong>340</strong>
+                    <span>Internships</span>
+                </div>
+
+                <div>
+                    <strong>78</strong>
+                    <span>Industry Partners</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div>
+
+            <b>SkillBridge</b>
+
+            <br>
+
+            <small>
+                Empowering Skills • Connecting Industry •
+                Building Careers
+            </small>
+
+        </div>
+
+        <div>
+            © 2026 SkillBridge Academic Project
+        </div>
+
+    </footer>
+
+
+    <!-- LOGIN MODAL -->
+    <div id="modal" class="modal">
+
+        <div class="modal-box">
+
+            <button
+                class="close"
+                onclick="closeModal()">
+                ×
+            </button>
+
+
+            <div class="login-header">
+
+                <div class="login-icon">
+                    🔐
+                </div>
+
+                <div>
+
+                    <h2>
+                        Portal Login
+                    </h2>
+
+                    <p>
+                        Enter your details and select your role.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <label for="loginEmail">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                autocomplete="email">
+
+
+            <label for="loginPassword">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                autocomplete="current-password">
+
+
+            <label for="loginRole">
+                Select Role
+            </label>
+
+            <select id="loginRole">
+
+                <option value="Student">
+                    🎓 Student
+                </option>
+
+                <option value="Academician">
+                    👨‍🏫 Academician
+                </option>
+
+                <option value="Industry">
+                    🏢 Industry
+                </option>
+
+                <option value="Institution">
+                    🏛️ Institution
+                </option>
+
+            </select>
+
+
+            <!-- IMPORTANT:
+                 loginUser() reads the role from loginRole -->
+            <button
+                class="login-submit"
+                onclick="loginUser()">
+
+                🔐 Login To Portal
+
+            </button>
+
+
+            <p
+                id="loginMessage"
+                class="login-message">
+            </p>
+
+
+            <p class="login-note">
+                Your role determines which dashboard
+                you can access.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
